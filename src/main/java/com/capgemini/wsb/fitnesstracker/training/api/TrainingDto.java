@@ -1,7 +1,9 @@
 package com.capgemini.wsb.fitnesstracker.training.api;
 
 import com.capgemini.wsb.fitnesstracker.training.internal.ActivityType;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.capgemini.wsb.fitnesstracker.user.api.User;
+import com.capgemini.wsb.fitnesstracker.utils.MultiFormatDateDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
 
 import java.util.Date;
@@ -13,9 +15,10 @@ import java.util.Date;
 public class TrainingDto {
     private Long id;
     private Long userId;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private User user;
+    @JsonDeserialize(using = MultiFormatDateDeserializer.class)
     private Date startTime;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonDeserialize(using = MultiFormatDateDeserializer.class)
     private Date endTime;
     private ActivityType activityType;
     private double distance;

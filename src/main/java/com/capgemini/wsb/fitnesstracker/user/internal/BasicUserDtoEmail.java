@@ -2,7 +2,5 @@ package com.capgemini.wsb.fitnesstracker.user.internal;
 
 import jakarta.annotation.Nullable;
 
-
-record BasicUserDto(@Nullable Long Id, String firstName, String lastName) {
-
+record BasicUserDtoEmail(@Nullable Long id, String email) {
 }

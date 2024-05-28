@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,15 +37,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
     }
 
     /**
-     * Retrieves a list of users whose age is greater than the specified age.
+     * Retrieves a list of users whose birthdate is before the specified date.
      *
-     * @param age the minimum age of the users to search for
-     * @return a list of {@link User} objects whose age is greater than the specified age,
-     *         or an empty list if no users match the search criteria
+     * @param date the latest birthdate of the users to search for
+     * @return a list of {@link User} objects whose birthdate is before the specified date,
+     * or an empty list if no users match the search criteria
      */
-    default List<User> searchUsersByAgeGreaterThan(int age) {
+    default List<User> searchUsersByAgeGreaterThan(LocalDate date) {
         return findAll().stream()
-                .filter(user -> Period.between(user.getBirthdate(), LocalDate.now()).getYears() > age)
+                .filter(user -> user.getBirthdate().isBefore(date))
                 .toList();
     }
 

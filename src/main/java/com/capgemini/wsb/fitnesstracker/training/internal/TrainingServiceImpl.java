@@ -49,7 +49,7 @@ public class TrainingServiceImpl implements TrainingProvider {
     public List<Training> findCompletedTrainings(LocalDate date) {
         return trainingRepository.findAll()
                 .stream()
-                .filter(training -> training.getEndTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isEqual(date))
+                .filter(training -> training.getEndTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isAfter(date))
                 .toList();
     }
 
@@ -70,7 +70,6 @@ public class TrainingServiceImpl implements TrainingProvider {
     public Training updateTraining(Long id, TrainingDto trainingDto) {
         Training training = trainingRepository.findById(id)
                 .orElseThrow(() -> new TrainingNotFoundException(id));
-
         training.setStartTime(trainingDto.getStartTime());
         training.setEndTime(trainingDto.getEndTime());
         training.setActivityType(trainingDto.getActivityType());
